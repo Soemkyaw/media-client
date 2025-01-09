@@ -4,26 +4,11 @@
 
   <main class="container mx-auto">
     <!-- category list  -->
-    <div
-      class="bg-yellow-100 flex flex-wrap justify-center items-center px-5 py-3 rounded-lg gap-3"
-      style="background-color: #fdf8e1"
-    >
-      <div class="bg-customBrown text-white rounded px-2 py-1">Politics</div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">Business</div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">Technology</div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">Health</div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">
-        Entertainment
-      </div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">Sports</div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">Science</div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">Lifestyle</div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">Education</div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">Weather</div>
-      <div class="bg-customBrown text-white rounded px-2 py-1">
-        Breaking News
-      </div>
-    </div>
+    <Categories
+      @searchKeyHandler="searchKeyHandler"
+      @filterByCategory="filterByCategory"
+      @getAllPosts="getAllPosts"
+    ></Categories>
 
     <section class="px-5">
       <h3
@@ -32,9 +17,9 @@
         Articles
       </h3>
       <!-- cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 my-5 gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-5 gap-5">
         <router-link
-          :to="{name:'detail',params:{id:post.id}}"
+          :to="{ name: 'detail', params: { id: post.id } }"
           v-for="post in posts"
           :key="post.id"
           class="relative my-5 group"
@@ -74,32 +59,60 @@
 </template>
 
 <script>
+import Categories from "../components/Categories";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 export default {
   components: {
+    Categories,
     Footer,
     Navbar,
   },
   data() {
     return {
       posts: [],
+      categories: [],
     };
   },
+  methods: {
+    fetchDatas(url) {
+      fetch(url)
+        .then((response) => {
+          return response.json();
+        })
+        .then((datas) => {
+          this.posts = datas.posts.map((post) => {
+            post.featured_image =
+              "http://127.0.0.1:8000/storage/" + post.featured_image;
+            return post;
+          });
+        })
+        .catch((err) => {
+          console.log(err.message);
+        })
+    },
+
+    getPosts()
+    {
+      this.fetchDatas("http://127.0.0.1:8000/api/posts")
+    },
+
+    searchKeyHandler(searchKey)
+    {
+      this.fetchDatas(`http://127.0.0.1:8000/api/posts?search=${searchKey}`)
+    },
+
+    filterByCategory(id)
+    {
+      this.fetchDatas(`http://127.0.0.1:8000/api/categories/${id}/posts`);
+    },
+
+    getAllPosts() {
+      this.getPosts();
+    },
+  },
   mounted() {
-    fetch("http://127.0.0.1:8000/api/posts")
-      .then((response) => {
-        return response.json();
-      })
-      .then((datas) => {
-        this.posts = datas.posts.map((post) => {
-          post.featured_image = "http://127.0.0.1:8000/storage/" + post.featured_image;
-          return post;
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.getPosts();
   },
 };
 </script>
