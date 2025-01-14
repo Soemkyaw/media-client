@@ -60,16 +60,27 @@
           </li>
           <li>
             <router-link
-              to=""
-              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >About</router-link
-            >
-          </li>
-          <li>
-            <router-link
               to="/contact"
               class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >Contact</router-link>
+          </li>
+          <li v-if="!isLoggedIn">
+            <router-link
+              to="/login"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >Login</router-link>
+          </li>
+          <li v-if="!isLoggedIn">
+            <router-link
+              to="/register"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >Sign up</router-link>
+          </li>
+          <li v-if="isLoggedIn">
+            <div
+              @click="logoutHandler"
+              class="block py-2 px-3 text-red-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >Logout</div>
           </li>
         </ul>
       </div>
@@ -78,8 +89,21 @@
 </template>
 
 <script>
-export default {
+import { mapActions, mapGetters } from 'vuex';
 
+export default {
+  computed: {
+    ...mapGetters(['isLoggedIn']),
+  },
+  methods: {
+    ...mapActions(['updateIsLoggedIn']),
+    logoutHandler()
+    {
+      localStorage.removeItem('token');
+      this.updateIsLoggedIn(false);
+      this.$router.push('/')
+    }
+  },
 }
 </script>
 

@@ -1,6 +1,4 @@
 <template>
-  <!-- navbar  -->
-  <Navbar></Navbar>
 
   <main class="container mx-auto">
     <!-- category list  -->
@@ -61,12 +59,10 @@
 <script>
 import Categories from "../components/Categories";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 export default {
   components: {
     Categories,
     Footer,
-    Navbar,
   },
   data() {
     return {

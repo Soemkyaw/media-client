@@ -1,7 +1,4 @@
 <template>
-  <!-- navbar  -->
-  <Navbar></Navbar>
-
   <section>
     <div class="container mx-auto">
       <!-- post detail  -->
@@ -32,64 +29,7 @@
         </div>
 
         <!-- comments  -->
-        <div class="text-center">
-          <span
-            class="inline-block my-3 border-b border-b-yellow-300 text-gray-500"
-            >Your Opinion Matters</span
-          >
-        </div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="grid grid-cols-subgrid gap-4 col-span-3">
-            <textarea
-              name=""
-              id=""
-              class="col-start-2 border border-gray-300 rounded-lg border-b-2 px-3 py-4 outline outline-0 focus:border-2 focus:border-yellow-400 focus:outline-0"
-              placeholder="Enter your message"
-            ></textarea>
-          </div>
-        </div>
-        <div class="flex flex-col items-center my-5 space-y-3">
-          <!-- card  -->
-          <div
-            class="border border-gray-100 shadow-md rounded-md px-5 py-3 w-96"
-          >
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <div
-                  class="w-12 h-12 border rounded-full mr-3 inline-block overflow-hidden"
-                >
-                  <img src="../assets/logo.png" class="object-fill" />
-                </div>
-                <span class="text-sm font-bold text-gray-700">name</span>
-              </div>
-              <div class="text-yellow-500 text-sm">3 hours ago</div>
-            </div>
-            <div class="text-gray-600">this is comment design</div>
-          </div>
-
-          <!-- card  -->
-          <div
-            class="border border-gray-100 shadow-md rounded-md px-5 py-3 w-96"
-          >
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <div
-                  class="w-12 h-12 border rounded-full mr-3 inline-block overflow-hidden"
-                >
-                  <img src="../assets/logo.png" class="object-fill" />
-                </div>
-                <span class="text-sm font-bold text-gray-700">name</span>
-              </div>
-              <div class="text-yellow-500 text-sm">3 hours ago</div>
-            </div>
-            <div class="text-gray-600">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt
-              repudiandae commodi quo inventore tenetur earum similique ipsum
-              nobis recusandae modi nihil laboriosam nulla deleniti repellendus
-              dicta quae, omnis, accusantium aspernatur!
-            </div>
-          </div>
-        </div>
+        <Comments></Comments>
       </div>
 
       <div class="border-b mt-20 border-b-yellow-200"></div>
@@ -138,11 +78,12 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar";
+import Comments from '../components/Comments'
 import Footer from "../components/Footer";
 
 export default {
-  components: { Navbar, Footer },
+  components: {
+    Comments, Footer },
   props: ["id"],
   data() {
     return {

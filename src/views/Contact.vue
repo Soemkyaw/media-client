@@ -1,5 +1,4 @@
 <template>
-  <Navbar></Navbar>
   <!-- contact form -->
   <section>
     <div class="px-5  sm:max-lg:w-1/2 lg:w-1/4  mx-auto space-y-5 mt-5 my-10">
@@ -27,11 +26,10 @@
 
 <script>
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 export default {
   components: {
     Footer,
-    Navbar,
+
   },
 };
 </script>

@@ -1,7 +1,4 @@
 <template>
-  <!-- navbar  -->
-  <Navbar></Navbar>
-
   <!-- hero section  -->
   <section>
     <div class="container mx-auto my-auto">
